@@ -1,0 +1,70 @@
+﻿@model TestApp.Models.Order
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Заказ";
+}
+ 
+<h1>Просмотр информации</h1>
+
+<div>
+    <h4>Заказ</h4>
+    <div>
+    <button class="btn btn-primary" onclick="$(location).attr('href','/Order/Edit/@Model?.Id');">Редактировать</button> 
+    <button class="btn btn-secondary" id="Delete" onclick="Delete('@Model?.Number', '@Model?.Id');">Удалить</button> 
+   
+</div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Number)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Number)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class = "col-sm-10">
+            @Model?.Date.ToString("dd.MM.yyyy")
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Provider.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Provider.Name)
+        </dd>
+    </dl>
+</div>
+<div class="col">
+    <div class="form-group">
+        Элементы заказа
+        @if (Model?.OrderItems.Count > 0)
+        {
+            <table>
+                <tr>
+                    <th>Название</th>
+                    <th>Колличество</th>
+                    <th>Ед. измерения</th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.OrderItems)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Unit</td>
+                        <td>
+                            <input type="button" value="Убрать" class="btn btn-secondary" onclick="RemOrderItem(@item.Id);"/>
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+    </div>
+    <br />
+    <div>
+         <a asp-action="Index" asp-controller="Home">К заказам</a>
+    </div>
+</div>
+

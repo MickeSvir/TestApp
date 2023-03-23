@@ -1,0 +1,83 @@
+﻿@model TestApp.Models.FilterOrderViewModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">        
+    <form method="get" asp-controller="Order" asp-action="Create">
+        <div class="form-group">
+            <br />
+            <input type="submit" class="btn btn-primary" value="Добавить заказ"/>
+        </div>
+    </form>
+</div>
+<br />
+<div class="row">
+    <form method="get">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-3">
+                    <label class="control-label" for="providerId">Поставщик: </label>
+                    <select class="form-control" name="providerId" asp-items="Model.Providers"></select>
+                    </div>
+                    <div class="col-3">
+                    <label class="control-label" for="numberOrder">Номер заказа: </label>
+                    <select class="form-control" name="numberOrder" asp-items="Model.OrderNumbers"></select>
+                    </div>
+                    <div class="col-3">
+                    <label class="control-label">Начало</label>
+                    <input class="form-control" type="date" asp-for="MinDate" />
+                    </div>
+                    <div class="col-3">
+                    <label class="control-label">Конец</label>
+                    <input class="form-control" type="date" asp-for="MaxDate" />
+                    </div>
+            </div>
+            <div class="row">
+                Фильтры по содержимому заказов
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label class="control-label" for="itemName">Название элементов заказов: </label>
+                    <select class="form-control" name="itemName" asp-items="Model.ItemOrderNames"></select>
+                </div>
+                <div class="col-6">
+                    <label class="control-label" for="itemUnit">Единицы измерения элементов заказов: </label>
+                    <select class="form-control" name="itemUnit" asp-items="Model.ItemOrderUnit"></select>
+                </div>
+                    
+            </div>
+            <br />
+            <div class="row">
+                <input class="btn btn-secondary" type="submit" value="Фильтр" />             
+            </div>
+            </div>           
+    </form>  
+    <br />
+</div>
+<br />
+<div class="row">
+    <br />
+    @if(Model.Orders.Count>0)
+    {
+
+        <table>
+            <tr>
+                <th>Номер</th>
+                <th>Дата</th>
+                <th>Поставщик</th>
+                <th></th>
+            </tr>
+            @foreach(var item in Model.Orders)
+            {
+                <tr>
+                    <td>@item.Number</td>
+                    <td>@item.Date.ToString("dd.MM.yyyy")</td>
+                    <td>@item.Provider.Name</td>
+                    <td><a href="/Order/Details?Id=@item.Id">Просмотреть</a></td>
+                </tr>
+            }
+        </table>
+    }
+</div>
