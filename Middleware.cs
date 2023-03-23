@@ -35,6 +35,9 @@ namespace TestApp
 
     public class AddOrderItemMiddleware
     {
+        public AddOrderItemMiddleware()
+        { 
+        }
         public Task Invoke(HttpContext httpContext, MyContext db)
         {
             httpContext.Response.ContentType = "text/plain";
@@ -67,6 +70,9 @@ namespace TestApp
     public class RemoveOrderItemMiddleware
     {
  
+        public RemoveOrderItemMiddleware() 
+        { 
+        }
         public Task Invoke(HttpContext httpContext, MyContext db)
         {
             httpContext.Response.ContentType = "text/plain";
@@ -89,7 +95,9 @@ namespace TestApp
 
     public class TestOrderMiddleware
     {
- 
+        public TestOrderMiddleware()
+        {
+        }
         public Task Invoke(HttpContext httpContext, MyContext db)
         {
             
@@ -111,7 +119,9 @@ namespace TestApp
 
     public class RemoveOrderMiddleware
     {
- 
+        public RemoveOrderMiddleware()
+        {
+        }
         public Task Invoke(HttpContext httpContext, MyContext db)
         {
             httpContext.Response.ContentType = "text/plain";
